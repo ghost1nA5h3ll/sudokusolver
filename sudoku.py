@@ -2,19 +2,7 @@
 import random
 
 #generates a sudoku and hides given amount of numbers
-def generate_sudoku(number):
-    #staticly generating a completly empty board (just 0)
-    board = [
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,6,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0]
-    ]
+def generate_sudoku(board,number):
     #filling the empty board with random numbers from 0 to 9
     for i in range(len(board)):
         for j in range(len(board[0])):
@@ -31,7 +19,7 @@ def generate_sudoku(number):
         return board
     else:
         #board is not solveable so just start again
-        return generate_sudoku(number)
+        return generate_sudoku(board,number)
 
 #printing a given board
 def print_sudoku(board):
@@ -99,6 +87,3 @@ def solve_sudoku(board):
         
             board[row][col] = 0 #backtracking and setting the field to 0
     return False #Not solveable
-
-board  = generate_sudoku(61)
-print_sudoku(board)
