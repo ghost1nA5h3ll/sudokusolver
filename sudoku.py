@@ -1,14 +1,44 @@
-board = [
-    [0,3,0,0,7,0,9,0,0],
-    [0,0,0,1,9,5,0,0,0],
-    [0,0,8,0,0,0,0,6,0],
-    [8,0,0,0,6,0,0,0,0],
-    [4,0,0,8,0,0,0,0,1],
-    [0,0,0,0,2,0,0,0,0],
-    [0,6,0,0,0,0,2,8,0],
-    [0,0,0,4,1,9,0,0,5],
-    [0,0,0,0,0,0,0,7,0]
-]
+import random
+
+""" board = [
+    [0, 3, 0, 0, 7, 0, 9, 0, 0],
+    [0, 0, 0, 1, 9, 5, 0, 0, 0],
+    [0, 0, 8, 0, 0, 0, 0, 6, 0],
+    [8, 0, 0, 0, 6, 0, 0, 0, 0],
+    [4, 0, 0, 8, 0, 0, 0, 0, 1],
+    [0, 0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 6, 0, 0, 0, 0, 2, 8, 0],
+    [0, 0, 0, 4, 1, 9, 0, 0, 5],
+    [0, 0, 0, 0, 0, 0, 0, 7, 0]
+] """
+
+def generate_sudoku(number):
+    board = [
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,6,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0]
+    ]
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            board[i][j] = random.randint(0,9)
+
+    if solve_sudoku(board):
+        for x in range(0,number):
+            rnd_x = random.randint(0,8)
+            rnd_y = random.randint(0,8)
+
+            if board[rnd_y][rnd_x] != 0:
+                board[rnd_y][rnd_x] = 0
+        return board
+    else:
+        return generate_sudoku(number)
+
 
 def print_sudoku(board):
     for i in range(len(board[0])):
@@ -70,10 +100,5 @@ def solve_sudoku(board):
             board[row][col] = 0
     return False
 
-
-    
-
-print_sudoku(board)
-solve_sudoku(board)
-print("___________________________________")
+board  = generate_sudoku(61)
 print_sudoku(board)
