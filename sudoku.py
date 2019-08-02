@@ -24,38 +24,56 @@ def print_sudoku(board):
             
 
 def find_empty(board):
-    for i in range(len(board[0])):
-        for j in range(len(board[i])):
+    for i in range(len(board)):
+        for j in range(len(board[0])):
             if board[i][j] == 0:
-                return (i,j)
+                return (i, j)
     
     return None
 
 def find_valid(board, number, pos):
     #x Achse (horizontal) BSP: board, 1 , (0,0)
-    for i in range(len(board[pos[0]])):
-        if number == board[pos[0]][i]:
+    for i in range(len(board[0])):
+        if number == board[pos[0]][i] and pos[1] != i:
             return False
     
     #y Achse (vertikale)
-    for j in range(len(board[pos[0]])):
-        if number == board[j][pos[1]]:
+    for j in range(len(board)):
+        if number == board[j][pos[1]] and pos[0] != j:
             return False
 
     #Box (3x3 Feld)
     box_x = pos[1] // 3
     box_y = pos[0] // 3
 
-    for i in range(box_x * 3, box_x + 3):
-        for j in range(box_y * 3, box_y + 3):
-            if number == board[i][j]:
+    for i in range(box_y * 3, box_y*3 + 3):
+        for j in range(box_x * 3, box_x*3 + 3):
+            if number == board[i][j] and (i,j) != pos:
                 return False
     
     return True
 
+def solve_sudoku(board):
+    pos = find_empty(board)
+    if not pos:
+        return True
+    else:
+        row, col = pos
+
+    for i in range(1,10):
+        if find_valid(board, i, (row, col)):
+            board[row][col] = i
+            
+            if solve_sudoku(board):
+                return True
+        
+            board[row][col] = 0
+    return False
+
 
     
 
-#print_sudoku(board)
-valid = find_valid(board,5,(0,0))
-print(valid)
+print_sudoku(board)
+solve_sudoku(board)
+print("___________________________________")
+print_sudoku(board)
