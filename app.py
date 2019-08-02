@@ -2,17 +2,7 @@ import sudoku
 import tkinter
 import PIL
 
-board = [
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,6,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0]
-]
+board = sudoku.generate_sudoku(50)
 root = tkinter.Tk()
 
 menu = tkinter.Menu(root)
